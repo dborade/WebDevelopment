@@ -1,0 +1,64 @@
+﻿@page
+@model ResumeModel
+@{
+}
+<h1>@Model.Person.Name</h1>
+<h4 style = "color:cornflowerblue;"><i>@Model.Person.Email</i></h4>
+
+
+<h3 style = "background-color:thistle">Education</h3>
+<hr>
+<div>
+      @foreach(var Education in Model.Person.Educations) {
+            
+            <h4 style = "background-color: lightcyan">@Education.UniversityName</h4>
+            
+                <p>@Education.CollegeName</p>
+                <p>@Education.DegreeName</p>
+                <p>@Education.GPA</p>
+                <p>@Education.RelevantCoursework</p>
+                <p>@Education.Certifications</p>
+           
+      }
+</div>
+
+<h3 style = "background-color:thistle">Professional Experience</h3>
+<hr>
+
+<div>
+      @foreach(var Experience in Model.Person.Experiences) {
+            <ul>
+                <blockquote>@Experience.CompanyName</blockquote>
+                <li>@Experience.Designation</li>
+                <li>@Experience.Project</li>
+                <li>@Experience.Tenure</li>
+                <li>@Experience.City</li>
+                <li>@Experience.Country</li>
+                <li>@Experience.ExperienceDetails</li>
+           </ul>
+      }
+</div>
+
+<h3 style = "background-color:thistle">Projects</h3>
+<hr>
+<div>
+      @foreach(var Project in Model.Person.Projects) {
+            
+                <div>@Project.Name</div>
+                <div>@Project.Skills</div>
+                <div>@Project.Info</div>
+           
+      }
+</div>
+
+<h3 style = "background-color:thistle">Skills</h3>
+<hr>
+<div>
+      @foreach(var Skillset in Model.Person.Skillsets) {
+            
+                <div>@Skillset.Language</div>
+                <div>@Skillset.Tools</div>
+                <div>@Skillset.Addskills</div>
+           
+      }
+</div>

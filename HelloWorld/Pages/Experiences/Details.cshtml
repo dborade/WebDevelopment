@@ -1,0 +1,67 @@
+@page
+@model HelloWorld.Pages.Experiences.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Experience</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Experience.CompanyName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Experience.CompanyName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Experience.Designation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Experience.Designation)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Experience.Project)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Experience.Project)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Experience.Tenure)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Experience.Tenure)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Experience.City)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Experience.City)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Experience.Country)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Experience.Country)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Experience.ExperienceDetails)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Experience.ExperienceDetails)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Experience.Profile)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Experience.Profile.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Experience.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

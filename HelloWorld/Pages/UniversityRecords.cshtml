@@ -1,0 +1,38 @@
+﻿@page
+@model UniversityRecordsModel
+@{
+}
+<h1>Candidate university records</h1>
+
+<table class="table table-hover" border="1px" >
+    <thead bgcolor="thistle">
+            <tr>
+                <th class="text-center">Name</th>
+                <th class="text-center">University name</th>
+                <th class="text-center">College Name</th>
+                <th class="text-center">Degree Name</th>
+                <th class="text-center">Degree Type</th> 
+                <th class="text-center">Academic profile</th> 
+                <th class="text-center">Change your skills rating</th> 
+                             
+            </tr>
+    </thead>
+   
+   
+   <tbody>
+        @foreach(var university in Model.UniversityRecords) 
+        {
+            <tr class="text-center">
+               <td>@university.Profile.Name</td>
+               <td>@university.UniversityName</td>
+               <td>@university.CollegeName</td>
+               <td>@university.DegreeName</td>
+               <td>@university.DegreeType</td>
+               <td><a href="https://localhost:5001/AcademicProfile?id=@university.Profile.Id" >Know More</a></td>
+               <td>
+                <a asp-page="UpdateSkillRating" alt="UpdateSkillRating" asp-route-id=@university.Profile.Id> Update skill rating </a>
+                </td> 
+            </tr> 
+            }                                                                                                        
+    </tbody>
+</table> 

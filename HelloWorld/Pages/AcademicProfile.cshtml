@@ -1,0 +1,22 @@
+﻿@page
+@model AcademicProfileModel
+@{
+}
+       
+                <h1>@Model.Person.Name</h1>
+                <h4 style = "color:cornflowerblue;"><i>@Model.Person.Email</i></h4>
+
+<h3 style = "background-color:thistle">Acedemics</h3>
+<hr>
+<div>
+      @foreach(var Education in Model.Person.Educations) {
+            
+                <h4><strong>@Education.UniversityName</strong></h4>
+                <p>@Education.CollegeName</p>
+                <p>@Education.DegreeName</p>
+                <p>@Education.GPA</p>
+                <p>@Education.RelevantCoursework</p>
+                <p>@Education.Certifications</p>
+           
+      }
+</div>

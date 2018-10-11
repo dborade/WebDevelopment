@@ -1,0 +1,47 @@
+﻿@page
+@model UpdateSkillRatingModel
+@{
+}
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <form method="post" style="margin-top: 50px;">
+                <div class="form-group">
+                <label class="control-label">Person name</label>
+                <div>
+                    <p class="form-control-static">@Model.Person.Name</p>
+                </div>
+
+               
+               <div class="form-group">
+                    <label asp-for="UpdateSkillRatingForm.Skill" class="control-label"></label>
+                    <input asp-for="UpdateSkillRatingForm.Skill" class="form-control" asp-items="ViewBag.Skill"/>
+                    <span asp-validation-for="UpdateSkillRatingForm.Skill" class="text-danger"></span>
+                </div>
+            
+                <!--
+                <div class="form-group">
+                    <label asp-for="UpdateSkillRatingForm.SkillId" class="control-label"></label>
+                    <select asp-for="UpdateSkillRatingForm.SkillId" class="form-control" asp-items="ViewBag.SkillId" ></select>
+                    <span asp-validation-for="UpdateSkillRatingForm.SkillId" class="text-danger"></span>
+                </div>
+                -->
+
+                
+                <div class="form-group">
+                    <input type="hidden" asp-for="UpdateSkillRatingForm.PersonId" />
+                    <label asp-for="UpdateSkillRatingForm.Rating" class="control-label"></label>
+                    <input asp-for="UpdateSkillRatingForm.Rating" class="form-control" asp-items="ViewBag.Rating" />
+                    <span asp-validation-for="UpdateSkillRatingForm.Rating" class="text-danger"></span>
+                </div>
+                
+                
+               
+                <div class="form-group">
+                    <input type="submit" value="Update rating" class="btn btn-danger" />
+                </div>
+                
+            </div>
+     </form>
+    </div>
+</div>

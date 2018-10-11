@@ -1,0 +1,55 @@
+@page
+@model HelloWorld.Pages.Skillsets.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>Skillset</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Skillset.Id" />
+            <div class="form-group">
+                <label asp-for="Skillset.Language" class="control-label"></label>
+                <input asp-for="Skillset.Language" class="form-control" />
+                <span asp-validation-for="Skillset.Language" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Skillset.Tools" class="control-label"></label>
+                <input asp-for="Skillset.Tools" class="form-control" />
+                <span asp-validation-for="Skillset.Tools" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Skillset.Addskills" class="control-label"></label>
+                <input asp-for="Skillset.Addskills" class="form-control" />
+                <span asp-validation-for="Skillset.Addskills" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Skillset.Rating" class="control-label"></label>
+                <input asp-for="Skillset.Rating" class="form-control" />
+                <span asp-validation-for="Skillset.Rating" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Skillset.PersonId" class="control-label"></label>
+                <select asp-for="Skillset.PersonId" class="form-control" asp-items="ViewBag.PersonId"></select>
+                <span asp-validation-for="Skillset.PersonId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

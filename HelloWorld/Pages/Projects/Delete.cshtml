@@ -1,0 +1,46 @@
+@page
+@model HelloWorld.Pages.Projects.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Project</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Project.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Project.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Project.Skills)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Project.Skills)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Project.Info)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Project.Info)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Project.Profile)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Project.Profile.Id)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Project.Id" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>

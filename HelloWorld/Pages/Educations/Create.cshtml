@@ -1,0 +1,63 @@
+@page
+@model HelloWorld.Pages.Educations.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>Education</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Education.UniversityName" class="control-label"></label>
+                <input asp-for="Education.UniversityName" class="form-control" />
+                <span asp-validation-for="Education.UniversityName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Education.CollegeName" class="control-label"></label>
+                <input asp-for="Education.CollegeName" class="form-control" />
+                <span asp-validation-for="Education.CollegeName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Education.DegreeName" class="control-label"></label>
+                <input asp-for="Education.DegreeName" class="form-control" />
+                <span asp-validation-for="Education.DegreeName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Education.GPA" class="control-label"></label>
+                <input asp-for="Education.GPA" class="form-control" />
+                <span asp-validation-for="Education.GPA" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Education.RelevantCoursework" class="control-label"></label>
+                <input asp-for="Education.RelevantCoursework" class="form-control" />
+                <span asp-validation-for="Education.RelevantCoursework" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Education.Certifications" class="control-label"></label>
+                <input asp-for="Education.Certifications" class="form-control" />
+                <span asp-validation-for="Education.Certifications" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Education.PersonId" class="control-label"></label>
+                <select asp-for="Education.PersonId" class ="form-control" asp-items="ViewBag.PersonId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
