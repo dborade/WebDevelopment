@@ -1,0 +1,13 @@
+body {
+    background-image: url("http://yesofcorsa.com/wp-content/uploads/2017/02/Coffee-Desktop-Wallpaper-HD.jpg") ;
+    background-color: #cccccc;
+    background-attachment: fixed;
+    width: 100%;
+    color: white;
+    background-size: cover;
+    font-family: 'Sniglet', cursive;
+ }
+
+ #map{
+  width: 40%; height: 400px; background: grey;
+ }

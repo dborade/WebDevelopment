@@ -1,0 +1,17 @@
+body {
+    background-image: url("https://www.joefroyo.com/wp-content/uploads/2017/10/header_bg_beans_full_width.png") ;
+    background-color: #cccccc;
+    background-attachment: fixed;
+    width: 100%;
+    color: white;
+    background-size: cover;
+    font-family: 'Sniglet', cursive;
+ }
+
+ h3,div{
+     color: black;
+ }
+
+ #map{
+  width: 100%; height: 400px; background: grey;
+ }

@@ -1,0 +1,75 @@
+﻿@page
+@model BookingHistoryModel
+@{
+}
+<div>
+    <h1> Booking History</h1>
+    <ol id="BookingHistory">
+
+    </ol>
+</div>
+<style>
+    body {
+    background-image: url("https://images.pond5.com/cup-coffee-black-background-footage-024643803_prevstill.jpeg") ;
+    background-color: #cccccc;
+    background-attachment: fixed;
+    width: 100%;
+    color: white;
+    background-size: 100%;
+    font-family: 'Sniglet', cursive;
+ }
+
+
+</style>
+@section Scripts {
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-core.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+        $(function() {
+            loadData();
+        });
+        function loadData() {   
+            $.ajax({
+                url: 'http://localhost:5000/api/Customers',
+                dataType: 'json',
+                contentType: 'application/json',
+                method: 'GET'
+            }).done(function(responseJSON,status,xhr) {
+               // alert(status);
+                buildHistory(responseJSON);
+            }).fail(function(xhr,status,error) {
+                
+                alert("There was an error retrieving the data");
+            });
+        }
+        $("#BookingHistory").on('click', 'a.cancelbook', function() {
+            //alert(status);
+            var id = $(this).parents("li").attr('customer-id');
+            $.ajax({
+                url: 'http://localhost:5000/api/Customers/'+id,
+                dataType: 'json',
+                contentType: 'application/json',
+                method: 'DELETE'
+                }).done(function(responseData, status, xhr) {
+                alert("Your booking is cancelled successfully");
+                loadData(); 
+            }).fail(function(xhr, status, error) {
+                
+                alert("There was an error DELETING your customer"+error+"&    &"+status+"&   &"+xhr);
+            });
+        });
+        function buildHistory(customersList){
+            $("#BookingHistory").empty();
+            $.each(customersList,function(index,item){
+                var bookings = $('<li customer-id="'+item.id+'"></li>');
+                $(bookings).html('<div><h4>Customer Name: '+item.firstName+ ' '+ item.lastName+'</h4> <div> Contact Number: '+item.contactNo+'</div></div>');
+                $(bookings).append('<a href="#" class="cancelbook">Cancel Booking</a>');             
+                $("#BookingHistory").append(bookings);
+
+            });
+        } 
+
+
+    </script>
+}

@@ -1,0 +1,199 @@
+@page
+@model ClassSchedule.Pages.IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<h1>Class Schedule</h1>
+
+<div id="app">
+    
+    <ul>
+        <li v-for="classScheduler in classSchedulers"> 
+            {{ classScheduler.classCode }} - {{ classScheduler.className }} - {{ classScheduler.professor }} - {{ classScheduler.totalEnrollment }}
+               
+               <div class="row" v-show="classScheduler.addToClass">
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="Name" placeholder="Who do you want to add to this class?" v-model="form.Name"/>
+                            <button class="btn btn-primary" v-on:click.stop.prevent="addStudentToClass(classScheduler)">Add this student</button> 
+                            <button class="btn btn-default" v-on:click.stop.prevent="cancelAddingToClass(classScheduler)">Cancel</button>      
+                    </div>
+                </div>
+                
+                <span v-show="classScheduler.isClassAdded"> 
+                     <a href="#"  v-on:click.stop.prevent="removeFromClass(classScheduler)"> Remove from this class </a>       
+                 </span>
+                <span v-show="!classScheduler.isClassAdded">
+                    <a href="#"  v-on:click.stop.prevent="startAddingStudent(classScheduler)"> Add to this class </a>              
+                </span>
+                <span> | </span>
+                <a href="#" v-on:click.stop.prevent="deleteClass(classScheduler)">Delete This class</a>
+        </li>
+    </ul>
+    
+    <div>
+        <hr />
+        <form class="form" v-on:submit.stop.prevent="addClass" > 
+       
+        <h4>Add new Class</h4>
+        <div class="form-group">
+            <label for="classCode">Class Code</label>
+            <input type="text" class="form-control" id="classCode" placeholder="Class Code" v-model="form.classCode"/>
+        </div> 
+
+        <div class="form-group">
+            <label for="className">Class Name</label>
+            <input type="text" class="form-control" id="className" placeholder="Class Name" v-model="form.className" />
+        </div> 
+
+        <div class="form-group">
+            <label for="professor">Professor Name</label>
+            <input type="text" class="form-control" id="professor" placeholder="Professor Name" v-model="form.professor" />
+        </div> 
+
+
+        <div class="form-group">
+            <label for="totalEnrollment">Total Enrollment</label>
+            <input type="text" class="form-control" id="totalEnrollment" placeholder="Total Enrollment" v-model="form.totalEnrollment"/>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    </div>
+
+</div>
+
+
+@section scripts {
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                // PLACE DATA PROPERTIES HERE - THIS IS THE "MODEL" FOR OUR PROGRAM
+                classSchedulers: [],
+                form: {
+                    classCode: "",
+                    className: "",
+                    professor:"",
+                    totalEnrollment:"",
+                    Name:""
+                    
+                },
+                addToClass : false,
+                //addedToClass:false
+
+            },
+            mounted: function() {
+                // PERFORM ANY ACTIONS WHEN THE PAGE LOADS HERE - SIMILAR TO JQUERY DOCUMENT.READY
+                this.loadData();
+            },
+            methods: {
+                // ADD ANY METHODS (CLICK, SUBMIT EVENTS, ETC.)
+                loadData: function () {
+                    var self = this;
+                    $.ajax({
+                        url: 'http://localhost:5000/api/ClassSchedulers',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        method: 'GET'
+                    }).done(function(classData,status,xhr) {
+                        // process the response when status code is 200-299
+                        $.each(classData,
+                            function(idx, item) {
+                                item.addToClass = false;
+                                console.log(item.addToClass);
+                            });
+                        self.classSchedulers = classData;
+                        
+                    }).fail(function(xhr,status,error) {
+                        // deal with error from server (status code 400-599)
+                        alert("There was an error retrieving the data");
+                    });
+                },
+                
+                
+                deleteClass: function (classScheduler) {
+                    var self = this;
+                    $.ajax({
+                        url: 'http://localhost:5000/api/ClassSchedulers/' + classScheduler.id,
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        method: 'DELETE'
+                    }).done(function (responseData, status, xhr) {
+                        self.loadData();                
+                    }).fail(function(xhr, status, error) {
+                        alert("There was an error deleting the class");
+                    });
+                },
+                addClass: function () {
+                    var self = this;
+                    $.ajax({
+                        url: 'http://localhost:5000/api/ClassSchedulers',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        method: 'POST',
+                        data: JSON.stringify(self.form)
+                    }).done(function(responseData, status, xhr) {
+                        self.loadData(); // RELOAD THE scheduler data
+                        self.form.classCode = ""; 
+                        self.form.className = "";
+                        self.form.professor = "";
+                        self.form.totalEnrollment = ""; 
+                    }).fail(function(xhr, status, error) {
+                        alert("There was an error saving the class schedule");
+                    });
+                },
+
+                startAddingStudent: function (classScheduler) {
+                    console.log("Start adding student", classScheduler);
+                    classScheduler.addToClass = true;
+                },
+
+                cancelAddingToClass: function (classScheduler) {
+                    console.log("Cancel adding to the class", classScheduler);
+                    classScheduler.addToClass = false;
+                },
+
+                addStudentToClass: function (classScheduler) {
+                    //classScheduler.addedToClass = true;
+                    var self = this;      
+                                 
+                     $.ajax({
+                        url: 'http://localhost:5000/api/ClassSchedulers/addClassToSchedule/' + classScheduler.id,
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        method: 'PUT',
+                        data: JSON.stringify(self.form)
+                    }).done(function (responseData, status, xhr) {
+                        self.loadData();                           
+                        self.form.Name="";                         
+                    }).fail(function(xhr, status, error) {
+                        alert("There was an error saving student to your class");
+                    });                  
+                },
+
+
+                 removeFromClass: function (classScheduler) {
+                    classScheduler.addToClass = false;
+                    classScheduler.addToClass = false; 
+                    var self = this;
+                     $.ajax({
+                        url: 'http://localhost:5000/api/ClassSchedulers/removeFromSchedule/' + classScheduler.id,
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        method: 'DELETE'
+                    }).done(function (responseData, status, xhr) {
+                        self.loadData();               
+                    }).fail(function(xhr, status, error) {
+                        alert("There was an error saving student to your class");
+                    });
+                 },
+            },
+
+                
+            computed: {
+                // CREATE ANY CALCULATED PROPERTIES HERE. THEY BEHAVE LIKE READ-ONLY DATA
+            }
+        });
+    </script>
+}
